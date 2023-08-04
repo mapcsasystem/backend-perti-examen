@@ -1,0 +1,14 @@
+{
+  "name": "miguel-angel-perez-contreras",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "Miguel Angel Pérez Contreras",
+  "license": "MIT",
+  "dependencies": {}
+}
