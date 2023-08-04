@@ -1,17 +1,18 @@
 {
   "name": "miguel-angel-perez-contreras",
   "version": "1.0.0",
-  "description": "",
+  "description": "App examen",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "node app.js"
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
   },
   "keywords": [],
   "author": "Miguel Angel Pérez Contreras",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2"
   }
 }
