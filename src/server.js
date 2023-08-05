@@ -7,6 +7,7 @@ class Server {
     this.app = express();
     this.port = process.env.PORT || 3000;
     this.pathUsers = "/api/users";
+    this.pathRoles = "/api/roles";
 
     //!Conectar a base de datos
     this.connectionDB();
@@ -32,6 +33,7 @@ class Server {
   routes() {
     //! Routes Users
     this.app.use(this.pathUsers, require("./routes/users.routes"));
+    this.app.use(this.pathRoles, require("./routes/roles.routes"));
   }
 
   async connectionDB() {
