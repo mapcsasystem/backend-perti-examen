@@ -23,3 +23,9 @@ npm i
 ```
 docker compose up -d mongo
 ```
+
+#### ejecutar el comando de docker para bajar docker
+
+```
+docker compose down
+```
