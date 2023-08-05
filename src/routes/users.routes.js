@@ -4,15 +4,15 @@ const {
   postUserController,
   putUsersController,
   patchUserController,
-  deleteController,
+  deleteUserController,
 } = require("../controllers/users.controller");
 
 const router = Router();
 //! Routes Users
 router.get("/", getUsersController);
 router.post("/", postUserController);
-router.put("/", putUsersController);
+router.put("/:id", putUsersController);
 router.patch("/", patchUserController);
-router.delete("/", deleteController);
+router.delete("/", deleteUserController);
 
 module.exports = router;

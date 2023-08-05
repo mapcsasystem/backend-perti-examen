@@ -18,6 +18,9 @@ class Server {
     //! CORS
     this.app.use(cors());
 
+    //! Parse JSON
+    this.app.use(express.json());
+
     //! public folder
     this.app.use(express.static(path.join(__dirname, "public")));
   }
