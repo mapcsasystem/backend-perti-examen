@@ -9,7 +9,6 @@ const getRolesController = (req = request, res = response) => {
 const postRolesController = async (req = request, res = response) => {
   const { rol } = req.body;
   const role = new Role();
-  const rolTemp = await role.findByOne(rol);
 
   res.status(201).json({ success: true, data: role });
 };

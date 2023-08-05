@@ -10,24 +10,9 @@ const getUsersController = (req = request, res = response) => {
 const postUserController = async (req = request, res = response) => {
   const { fullName, email, password, rol, userName } = req.body;
   const user = new User({ fullName, email, password, rol, userName });
-  const existEmail = await User.findOne({ email });
-  if (existEmail) {
-    return res.status(400).json({
-      success: false,
-      msg: "El correo ya esta registrado",
-    });
-  }
-  const existUserName = await User.findOne({ userName });
-  if (existUserName) {
-    return res.status(400).json({
-      success: false,
-      msg: "El userName ya esta registrado",
-    });
-  }
-
   const salt = bcryptjs.genSaltSync();
   user.password = bcryptjs.hashSync(password, salt);
-
+  user.email.toLowerCase();
   await user.save();
   res.status(201).json({ success: true, data: user });
 };
