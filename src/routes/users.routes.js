@@ -13,12 +13,7 @@ const {
   userByIdExist,
 } = require("../helpers/db-validators");
 
-const {
-  validarCampos,
-  validateJWT,
-  isAdminRole,
-  haveRole,
-} = require("../middleware");
+const { validarCampos, validateJWT } = require("../middleware");
 const router = Router();
 //! Routes Users
 router.get("/", [validateJWT], getUsersController);
@@ -27,7 +22,6 @@ router.post(
   "/",
   [
     validateJWT,
-    haveRole("admin", "super admin", "user"),
     check("email").custom(emailExist),
     check("userName").custom(userNameExist),
     check("fullName", "El fullName es obligatotio.").not().isEmpty(),
@@ -47,7 +41,6 @@ router.put(
   "/:id",
   [
     validateJWT,
-    haveRole("admin", "super admin", "user"),
     check("id", "El id no es válido.").isMongoId(),
     check("id").custom(userByIdExist),
     check("rol").custom(validateRole),
@@ -60,8 +53,6 @@ router.delete(
   "/:id",
   [
     validateJWT,
-    // isAdminRole,
-    haveRole("admin", "super admin"),
     check("id", "El id no es válido.").isMongoId(),
     check("id").custom(userByIdExist),
     validarCampos,

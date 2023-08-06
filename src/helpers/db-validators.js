@@ -7,6 +7,13 @@ const validateRole = async (rol = "") => {
     throw new Error(`El role ${rol} no esta existe.`);
   }
 };
+
+const validateRoleExist = async (rol = "") => {
+  const exitRole = await Role.findOne({ rol });
+  if (exitRole) {
+    throw new Error(`El role ${rol} ya existe.`);
+  }
+};
 //#region Validacion users
 //! Users Validations
 const emailExist = async (email = "") => {
@@ -29,6 +36,13 @@ const userByIdExist = async (id = "") => {
     throw new Error(`El id ${exitUserById} no existe.`);
   }
 };
+
+const rolByIdExist = async (id = "") => {
+  const exitRolById = await Role.findById(id);
+  if (!exitRolById) {
+    throw new Error(`El id ${exitUserById} no existe.`);
+  }
+};
 //#endregion users
 
 module.exports = {
@@ -36,4 +50,6 @@ module.exports = {
   emailExist,
   userNameExist,
   userByIdExist,
+  validateRoleExist,
+  rolByIdExist,
 };

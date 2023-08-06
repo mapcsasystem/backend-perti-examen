@@ -3,7 +3,10 @@ const { check } = require("express-validator");
 
 const { validarCampos } = require("../middleware/validate-fields");
 
-const { loginController } = require("../controllers/auth.controller");
+const {
+  loginController,
+  registerController,
+} = require("../controllers/auth.controller");
 const {
   validateRole,
   emailExist,
@@ -21,6 +24,23 @@ router.post(
     validarCampos,
   ],
   loginController
+);
+
+router.post(
+  "/register",
+  [
+    check("email").custom(emailExist),
+    check("userName").custom(userNameExist),
+    check("fullName", "El fullName es obligatotio.").not().isEmpty(),
+    check("email", "El correo no es válido.").isEmail(),
+    check(
+      "password",
+      "El password tiene que ser más de 5 caracteres."
+    ).isLength({ min: 6 }),
+    check("userName", "El userName ya existe."),
+    validarCampos,
+  ],
+  registerController
 );
 
 module.exports = router;

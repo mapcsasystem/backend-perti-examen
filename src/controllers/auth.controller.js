@@ -1,6 +1,5 @@
 const { response, request } = require("express");
 const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 const { generarJWT } = require("../helpers/generate-jwt");
 
@@ -45,6 +44,25 @@ const loginController = async (req = request, res = response) => {
   }
 };
 
+const registerController = async (req = request, res = response) => {
+  try {
+    const { fullName, email, password, userName } = req.body;
+    const user = new User({ fullName, email, password, rol: "user", userName });
+    const salt = bcryptjs.genSaltSync();
+    user.password = bcryptjs.hashSync(password, salt);
+    user.email.toLowerCase();
+    await user.save();
+    res
+      .status(201)
+      .json({ success: true, msg: "Usuario creado correctamente", user });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, msg: "Hable con el administrador".error });
+  }
+};
+
 module.exports = {
   loginController,
+  registerController,
 };
