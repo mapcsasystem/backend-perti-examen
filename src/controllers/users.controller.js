@@ -74,7 +74,7 @@ const deleteUserController = async (req = request, res = response) => {
     //! Borrar fisicamente
     const user = await User.findByIdAndUpdate(id, { enabled: false });
     console.log(req.userAuth);
-    if (user === req.userAuth.rol) {
+    if (user.rol === req.userAuth.rol) {
       return res.status(403).json({
         success: true,
         msg: "No se puede borrar a si mismo.",

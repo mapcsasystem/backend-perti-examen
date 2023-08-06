@@ -27,6 +27,7 @@ router.post(
   "/",
   [
     validateJWT,
+    haveRole("admin", "super admin", "user"),
     check("email").custom(emailExist),
     check("userName").custom(userNameExist),
     check("fullName", "El fullName es obligatotio.").not().isEmpty(),
@@ -46,6 +47,7 @@ router.put(
   "/:id",
   [
     validateJWT,
+    haveRole("admin", "super admin", "user"),
     check("id", "El id no es válido.").isMongoId(),
     check("id").custom(userByIdExist),
     check("rol").custom(validateRole),
