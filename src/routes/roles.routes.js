@@ -13,14 +13,19 @@ const router = Router();
 router.get("/", [validateJWT], getRolesController);
 router.post(
   "/",
-  [validateJWT, check("rol").custom(validateRoleExist), validarCampos],
+  [
+    validateJWT,
+    check("rol").custom(validateRoleExist),
+    check("rol", "El rol es obligatorio").not().isEmpty(),
+    validarCampos,
+  ],
   postRolesController
 );
 router.delete(
   "/:id",
   [
     validateJWT,
-    haveRole("admin", "super admin"),
+    haveRole("super admin"),
     check("id", "El id no es válido.").isMongoId(),
     check("id").custom(rolByIdExist),
     validarCampos,
