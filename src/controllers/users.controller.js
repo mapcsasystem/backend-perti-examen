@@ -4,8 +4,17 @@ const User = require("../models/user.model");
 
 const getUsersController = async (req = request, res = response) => {
   try {
-    const users = await User.find();
-    res.status(200).json({ success: true, data: users });
+    const query = { enabled: true };
+    const count = await User.count(query);
+    const { limit = count, skip = 0 } = req.query;
+    const users = await User.find(query).skip(+skip).limit(+limit);
+
+    // const[count,users]=await Promise.all([
+    //   User.count(query),
+    //   User.find(query).skip(+skip).limit(+limit);
+    // ])
+
+    res.status(200).json({ success: true, data: users, count });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
