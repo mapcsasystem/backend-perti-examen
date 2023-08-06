@@ -59,18 +59,19 @@ const putUsersController = async (req = request, res = response) => {
   }
 };
 
-const patchUserController = (req = request, res = response) => {
-  res.status(200).json({ success: true, data: "patch hello" });
-};
+const deleteUserController = async (req = request, res = response) => {
+  const { id } = req.params;
+  //! Borrar fisicamente
+  //! const user = await User.findByIdAndDelete(id);
 
-const deleteUserController = (req = request, res = response) => {
-  res.status(200).json({ success: true, data: "delete hello" });
+  //! Borrar fisicamente
+  const user = await User.findByIdAndUpdate(id, { enabled: false });
+  res.status(200).json({ success: true, data: { id } });
 };
 
 module.exports = {
   getUsersController,
   postUserController,
   putUsersController,
-  patchUserController,
   deleteUserController,
 };

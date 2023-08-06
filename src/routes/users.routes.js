@@ -4,7 +4,6 @@ const {
   getUsersController,
   postUserController,
   putUsersController,
-  patchUserController,
   deleteUserController,
 } = require("../controllers/users.controller");
 const { validarCampos } = require("../middleware/validate-fields");
@@ -35,6 +34,7 @@ router.post(
   ],
   postUserController
 );
+
 router.put(
   "/:id",
   [
@@ -45,7 +45,15 @@ router.put(
   ],
   putUsersController
 );
-router.patch("/:id", patchUserController);
-router.delete("/:id", deleteUserController);
+
+router.delete(
+  "/:id",
+  [
+    check("id", "El id no es válido.").isMongoId(),
+    check("id").custom(userByIdExist),
+    validarCampos,
+  ],
+  deleteUserController
+);
 
 module.exports = router;
