@@ -11,7 +11,7 @@
 ### [Mongo compass](https://www.mongodb.com/es/products/compass) para poder conectar a la base de datos
 
 ```
-git clone https://github.com/mapcsasystem/bsckend-perti-examen
+git clone https://github.com/mapcsasystem/backend-perti-examen
 cd backend-perti-examen
 npm i
 ```
