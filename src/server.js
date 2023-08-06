@@ -1,12 +1,13 @@
 const express = require("express");
 const cors = require("cors");
-const { dbConnect } = require("./database/mongoDB");
+const { dbConnect } = require("./database/mongo-db");
 const path = require("path");
 class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT || 3000;
     this.pathUsers = "/api/users";
+    this.pathAuth = "/api/auth";
     this.pathRoles = "/api/roles";
 
     //!Conectar a base de datos
@@ -32,6 +33,7 @@ class Server {
 
   routes() {
     //! Routes Users
+    this.app.use(this.pathAuth, require("./routes/auth.routes"));
     this.app.use(this.pathUsers, require("./routes/users.routes"));
     this.app.use(this.pathRoles, require("./routes/roles.routes"));
   }

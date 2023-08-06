@@ -14,10 +14,12 @@ const getUsersController = async (req = request, res = response) => {
     //   User.find(query).skip(+skip).limit(+limit);
     // ])
 
-    res.status(200).json({ success: true, data: users, count });
+    res.status(200).json({ success: true, users, count });
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    return res
+      .status(500)
+      .json({ success: false, msg: "Hable con el administrador".error });
   }
 };
 
@@ -31,9 +33,11 @@ const postUserController = async (req = request, res = response) => {
     await user.save();
     res
       .status(201)
-      .json({ success: true, msg: "Usuario creado correctamente", data: user });
+      .json({ success: true, msg: "Usuario creado correctamente", user });
   } catch (error) {
-    res.status(500).json(error);
+    return res
+      .status(500)
+      .json({ success: false, msg: "Hable con el administrador".error });
   }
 };
 
@@ -52,21 +56,40 @@ const putUsersController = async (req = request, res = response) => {
     res.status(200).json({
       success: true,
       msg: "Usuario Actualizado correctamente.",
-      data: { user },
+      user,
     });
   } catch (error) {
-    res.status(500).json(error);
+    return res
+      .status(500)
+      .json({ success: false, msg: "Hable con el administrador".error });
   }
 };
 
 const deleteUserController = async (req = request, res = response) => {
-  const { id } = req.params;
-  //! Borrar fisicamente
-  //! const user = await User.findByIdAndDelete(id);
+  try {
+    const { id } = req.params;
+    //! Borrar fisicamente
+    //! const user = await User.findByIdAndDelete(id);
 
-  //! Borrar fisicamente
-  const user = await User.findByIdAndUpdate(id, { enabled: false });
-  res.status(200).json({ success: true, data: { id } });
+    //! Borrar fisicamente
+    const user = await User.findByIdAndUpdate(id, { enabled: false });
+    console.log(req.userAuth);
+    if (user === req.userAuth.rol) {
+      return res.status(403).json({
+        success: true,
+        msg: "No se puede borrar a si mismo.",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      msg: "Usuario borrado correctamente.",
+      user,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, msg: "Hable con el administrador".error });
+  }
 };
 
 module.exports = {
