@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { validateJWT, haveRole } = require("../middleware");
+const { validateJWT } = require("../middleware");
 const {
   getRolesController,
   postRolesController,
@@ -25,7 +25,6 @@ router.delete(
   "/roles/delete/:id",
   [
     validateJWT,
-    haveRole("super admin"),
     check("id", "El id no es válido.").isMongoId(),
     check("id").custom(rolByIdExist),
     validarCampos,
