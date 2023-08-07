@@ -19,7 +19,7 @@ const getUsersController = async (req = request, res = response) => {
     console.log(error);
     return res
       .status(500)
-      .json({ success: false, msg: "Hable con el administrador".error });
+      .json({ success: false, msg: "Hable con el administrador", error });
   }
 };
 
@@ -37,7 +37,7 @@ const postUserController = async (req = request, res = response) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ success: false, msg: "Hable con el administrador".error });
+      .json({ success: false, msg: "Hable con el administrador", error });
   }
 };
 
@@ -61,7 +61,7 @@ const putUsersController = async (req = request, res = response) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ success: false, msg: "Hable con el administrador".error });
+      .json({ success: false, msg: "Hable con el administrador", error });
   }
 };
 
@@ -88,7 +88,7 @@ const deleteUserController = async (req = request, res = response) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ success: false, msg: "Hable con el administrador".error });
+      .json({ success: false, msg: "Hable con el administrador", error });
   }
 };
 

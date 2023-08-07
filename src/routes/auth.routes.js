@@ -17,7 +17,7 @@ const {
 const router = Router();
 //! Routes Users
 router.post(
-  "/login",
+  "/auth/login",
   [
     check("email", "El correo es obligatorio").isEmail(),
     check("password", "La contraseña es obligatoria.").not().isEmpty(),
@@ -27,7 +27,7 @@ router.post(
 );
 
 router.post(
-  "/register",
+  "/auth/register",
   [
     check("email").custom(emailExist),
     check("userName").custom(userNameExist),

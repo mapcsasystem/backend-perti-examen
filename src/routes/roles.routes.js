@@ -9,10 +9,10 @@ const {
 const { validarCampos } = require("../middleware/validate-fields");
 const { validateRoleExist, rolByIdExist } = require("../helpers/db-validators");
 const router = Router();
-//! Routes Users
-router.get("/", [validateJWT], getRolesController);
+
+router.get("/roles/get-all", [validateJWT], getRolesController);
 router.post(
-  "/",
+  "/roles/create",
   [
     validateJWT,
     check("rol").custom(validateRoleExist),
@@ -22,7 +22,7 @@ router.post(
   postRolesController
 );
 router.delete(
-  "/:id",
+  "/roles/delete/:id",
   [
     validateJWT,
     haveRole("super admin"),

@@ -1,6 +1,7 @@
 const { request, response } = require("express");
 const Role = require("../models/role.model");
 const User = require("../models/user.model");
+const Movie = require("../models/movie.model");
 const validateRole = async (rol = "") => {
   const exitRole = await Role.findOne({ rol });
   if (!exitRole) {
@@ -43,7 +44,13 @@ const rolByIdExist = async (id = "") => {
     throw new Error(`El id ${exitUserById} no existe.`);
   }
 };
-//#endregion users
+
+const movieByIdNoExist = async (id = "") => {
+  const exitMovieById = await Movie.findById(id);
+  if (!exitMovieById) {
+    throw new Error(`El id ${exitMovieById} no existe.`);
+  }
+};
 
 module.exports = {
   validateRole,
@@ -52,4 +59,5 @@ module.exports = {
   userByIdExist,
   validateRoleExist,
   rolByIdExist,
+  movieByIdNoExist,
 };

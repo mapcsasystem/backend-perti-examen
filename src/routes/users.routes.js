@@ -16,10 +16,10 @@ const {
 const { validarCampos, validateJWT } = require("../middleware");
 const router = Router();
 //! Routes Users
-router.get("/", [validateJWT], getUsersController);
+router.get("/users/get-all", [validateJWT], getUsersController);
 
 router.post(
-  "/",
+  "/create",
   [
     validateJWT,
     check("email").custom(emailExist),
@@ -38,7 +38,7 @@ router.post(
 );
 
 router.put(
-  "/:id",
+  "/users/update/:id",
   [
     validateJWT,
     check("id", "El id no es válido.").isMongoId(),
@@ -50,7 +50,7 @@ router.put(
 );
 
 router.delete(
-  "/:id",
+  "/users/delete/:id",
   [
     validateJWT,
     check("id", "El id no es válido.").isMongoId(),

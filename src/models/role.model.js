@@ -14,10 +14,10 @@ const RoleSchema = Schema(
   }
 );
 
-// RoleSchema.methods.toJSON = function () {
-//   const { _id, ...rol } = this.toObject();
-//   rol.uid = _id;
-//   return;
-// };
+RoleSchema.methods.toJSON = function () {
+  const { ...rol } = this.toObject();
+  // rol.uid = _id;
+  return rol;
+};
 
 module.exports = model("Role", RoleSchema);
