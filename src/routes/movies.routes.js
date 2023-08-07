@@ -8,6 +8,7 @@ const {
   deleteMoviesController,
   postMoviesController,
   getMovieController,
+  searchMoviesController,
 } = require("../controllers/movies.controller");
 const { movieByIdNoExist } = require("../helpers/db-validators");
 const router = Router();
@@ -27,6 +28,17 @@ router.get(
   ],
   getMovieController
 );
+
+router.get(
+  "/movies/search",
+  [
+    validateJWT,
+    check("name", "El name es obligatorio.").not().isEmpty(),
+    validarCampos,
+  ],
+  searchMoviesController
+);
+
 router.post(
   "/movies/create",
   [

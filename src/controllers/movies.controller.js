@@ -62,7 +62,7 @@ const putMoviesController = async (req = request, res = response) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ success: false, msg: "Hable con el administrador".error });
+      .json({ success: false, msg: "Hable con el administrador", error });
   }
 };
 
@@ -79,7 +79,30 @@ const deleteMoviesController = async (req = request, res = response) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ success: false, msg: "Hable con el administrador".error });
+      .json({ success: false, msg: "Hable con el administrador", error });
+  }
+};
+
+const searchMoviesController = async (req = request, res = response) => {
+  try {
+    const { name } = req.query;
+    const regex = new RegExp(name, "i");
+    const query = { name: regex };
+    const count = await Movie.count(query);
+    console.log(count);
+    const { limit = count, skip = 0 } = req.query;
+    const movies = await Movie.find(query).skip(+skip).limit(+limit);
+
+    res.status(200).json({
+      success: true,
+      msg: "Película.",
+      movies,
+      count,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, msg: "Hable con el administrador", error });
   }
 };
 
@@ -89,4 +112,5 @@ module.exports = {
   putMoviesController,
   deleteMoviesController,
   getMovieController,
+  searchMoviesController,
 };
